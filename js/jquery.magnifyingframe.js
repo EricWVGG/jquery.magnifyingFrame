@@ -31,20 +31,20 @@
 
 
 (function($) {
-	$.fn.magnifyingFrame = function(arguments) {
+  $.fn.magnifyingFrame = function(arguments) {
 
-  	var settings = $.extend({
+    var settings = $.extend({
       'css_transitions' : true, /* smooths motion a little, creates a bouncing effect */
       'refresh_interval' : 2, /* increase if you have CPU issues */
       'frame_shadow' : true, /* creates an inset shadow while zooming */
       'mouseenter' : null, /* optional callback function */
       'mouseleave' : null, /* optional callback function */
       'css_transition_speed' : '0.1s' /* self-explanatory, probably won't need to adjust */
-  	}, arguments);
+    }, arguments);
 
     return this.each(function() {
 
-    	var $image = null,
+      var $image = null,
         $frame = null,
         currentMousePos = { x: -1, y: -1 },
         magnifying_frame_active = false,
@@ -53,47 +53,47 @@
         frame_height = 0,
         zoomed_width = 0,
         zoomed_height = 0;
-    	
-    	var methods = {
-    		init : function(options) { // Initialises the plugin
+      
+      var methods = {
+        init : function(options) { // Initialises the plugin
           // keep track of cursor on screen
-        	$(document).mousemove(function(event) {
+          $(document).mousemove(function(event) {
             currentMousePos = {
               x: event.pageX,
               y: event.pageY
             };
-        	});
-    			return $(this).each(function() {
-    				$image = $(this);
-    				if (options) $.extend(settings, options);
-    				if (settings.mouseenter === null) settings.mouseenter = methods.mouseenter;
-    				if (settings.mouseleave === null) settings.mouseleave = methods.mouseleave;
-    	    	methods.replace_image_with_frame();
-    	    	methods.bind_events();
-    			});
-    		},
-    		mouseenter : function() {
-    		  // callback function placeholder
-    		  // do nothing
-    		},
-    		mouseleave : function() {
-    		  // callback function placeholder
-    		  // do nothing
-    		},
-    		replace_image_with_frame : function() { // Creates the div that files can be dropped on to
-    		  // get zoomed image dimensions
-    		    var img = new Image();
-    		    img.onload = function() {
-    		      zoomed_width = img.width;
-    		      zoomed_height = img.height;
-    		      img = '';
+          });
+          return $(this).each(function() {
+            $image = $(this);
+            if (options) $.extend(settings, options);
+            if (settings.mouseenter === null) settings.mouseenter = methods.mouseenter;
+            if (settings.mouseleave === null) settings.mouseleave = methods.mouseleave;
+            methods.replace_image_with_frame();
+            methods.bind_events();
+          });
+        },
+        mouseenter : function() {
+          // callback function placeholder
+          // do nothing
+        },
+        mouseleave : function() {
+          // callback function placeholder
+          // do nothing
+        },
+        replace_image_with_frame : function() { // Creates the div that files can be dropped on to
+          // get zoomed image dimensions
+            var img = new Image();
+            img.onload = function() {
+              zoomed_width = img.width;
+              zoomed_height = img.height;
+              img = '';
               multiplier = (zoomed_width - frame_width) / frame_width;
-    		    }
-    		    img.src = $image.attr('src');
-    		  // create, style frame
-      		  frame_width = $image.attr('width');
-      		  frame_height = $image.attr('height');
-      		  $frame = $('<div/>', {
+            }
+            img.src = $image.attr('src');
+          // create, style frame
+            frame_width = $image.attr('width');
+            frame_height = $image.attr('height');
+            $frame = $('<div/>', {
               class: 'magnifyingFrame',
             });
             $frame.css({
@@ -123,13 +123,13 @@
                 'transition-timing-function' : 'ease-out'
               });
             }
-    				if(settings.frame_shadow) {
+            if(settings.frame_shadow) {
               $frame.data('box_shadow', 'inset 0px 0px 20px rgba(0,0,0,0.5)' );
-    				}
+            }
           // replace image with frame
             $image.css('display', 'none').before($frame);
-    		},
-    		bind_events : function() { // Bind plugin events
+        },
+        bind_events : function() { // Bind plugin events
           $frame.mouseenter(function(){
             settings.mouseenter();
             $frame.css('box-shadow', $frame.data('box_shadow'));
@@ -152,13 +152,13 @@
               'box-shadow' : ''
             });
           });
-    		},
-    	};
+        },
+      };
   
-  		return methods.init.apply(this);
+      return methods.init.apply(this);
 
     });
 
-	};
+  };
 })(jQuery);
 
