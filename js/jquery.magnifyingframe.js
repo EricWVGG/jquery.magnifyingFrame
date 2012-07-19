@@ -47,7 +47,7 @@
       var $image = null,
         $frame = null,
         currentMousePos = { x: -1, y: -1 },
-        magnifying_frame_active = false,
+        magnifying_frame_active = null,
         multiplier = 1,
         frame_width = 0,
         frame_height = 0,
@@ -87,6 +87,7 @@
               zoomed_width = img.width;
               zoomed_height = img.height;
               img = '';
+              // multiplier determines position of image relative to cursor's position in frame
               multiplier = (zoomed_width - frame_width) / frame_width;
             }
             img.src = $image.attr('src');
@@ -133,10 +134,10 @@
           $frame.mouseenter(function(){
             settings.mouseenter();
             $frame.css('box-shadow', $frame.data('box_shadow'));
-            magnifying_frame_updating = setInterval(function() {
-              var offset = $frame.offset();
-              var dx = ( offset.left - currentMousePos.x ) * multiplier;
-              var dy = ( offset.top - currentMousePos.y ) * multiplier;
+            magnifying_frame_active = setInterval(function() {
+              var offset = $frame.offset(),
+                dx = ( offset.left - currentMousePos.x ) * multiplier,
+                dy = ( offset.top - currentMousePos.y ) * multiplier;
               $frame.css({
                 'background-size' : zoomed_width+'px '+zoomed_height+'px',
                 'background-position' : dx+'px '+dy+'px'
@@ -144,7 +145,7 @@
             }, settings.refresh_interval);
           });
           $frame.mouseleave(function(){
-            clearInterval(magnifying_frame_updating);
+            clearInterval(magnifying_frame_active);
             settings.mouseleave();
             $frame.css({
               'background-size': frame_width+'px '+frame_height+'px',
