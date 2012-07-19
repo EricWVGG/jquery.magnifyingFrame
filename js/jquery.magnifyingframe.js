@@ -33,6 +33,15 @@
 (function($) {
   $.fn.magnifyingFrame = function(arguments) {
 
+    // Setting the cursor tracking as a global because we don't want multiple
+    //  mousemove() events bound to the document.
+    $(document).mousemove(function(event) {
+      magnifyingFrame_cursor_tracking = {
+        x: event.pageX,
+        y: event.pageY
+      };
+    });
+
     var settings = $.extend({
       'css_transitions' : true, /* smooths motion a little, creates a bouncing effect */
       'refresh_interval' : 2, /* increase if you have CPU issues */
@@ -46,7 +55,6 @@
 
       var $image = null,
         $frame = null,
-        currentMousePos = { x: -1, y: -1 },
         magnifying_frame_active = null,
         multiplier = 1,
         frame_width = 0,
@@ -57,12 +65,6 @@
       var methods = {
         init : function(options) { // Initialises the plugin
           // keep track of cursor on screen
-          $(document).mousemove(function(event) {
-            currentMousePos = {
-              x: event.pageX,
-              y: event.pageY
-            };
-          });
           return $(this).each(function() {
             $image = $(this);
             if (options) $.extend(settings, options);
@@ -136,8 +138,8 @@
             $frame.css('box-shadow', $frame.data('box_shadow'));
             magnifying_frame_active = setInterval(function() {
               var offset = $frame.offset(),
-                dx = ( offset.left - currentMousePos.x ) * multiplier,
-                dy = ( offset.top - currentMousePos.y ) * multiplier;
+                dx = ( offset.left - magnifyingFrame_cursor_tracking.x ) * multiplier,
+                dy = ( offset.top - magnifyingFrame_cursor_tracking.y ) * multiplier;
               $frame.css({
                 'background-size' : zoomed_width+'px '+zoomed_height+'px',
                 'background-position' : dx+'px '+dy+'px'
