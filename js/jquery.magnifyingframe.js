@@ -42,20 +42,19 @@
       };
     });
 
-    var settings = $.extend({
+    var properties = $.extend({
       'css_transitions' : true, /* smooths motion a little, creates a bouncing effect */
       'css_transition_speed' : '0.1s', /* self-explanatory, probably won't need to adjust */
       'refresh_interval' : 2, /* increase if you have CPU issues */
       'frame_shadow' : 'inset 0px 0px 20px rgba(0,0,0,0.5)', /* creates an inset shadow while zooming */
       'mouseenter' : null, /* optional callback function */
       'mouseleave' : null, /* optional callback function */
-      'frame' : null /* reference point for callbacks */
+      'frame' : null /* generated frame */
     }, arguments);
 
     return this.each(function() {
 
       var $image = null,
-        $frame = null,
         magnifying_frame_active = null,
         multiplier = 1,
         frame_width = 0,
@@ -68,9 +67,9 @@
           // keep track of cursor on screen
           return $(this).each(function() {
             $image = $(this);
-            if (options) $.extend(settings, options);
-            if (settings.mouseenter === null) settings.mouseenter = methods.mouseenter;
-            if (settings.mouseleave === null) settings.mouseleave = methods.mouseleave;
+            if (options) $.extend(properties, options);
+            if (properties.mouseenter === null) properties.mouseenter = methods.mouseenter;
+            if (properties.mouseleave === null) properties.mouseleave = methods.mouseleave;
             methods.replace_image_with_frame();
             methods.bind_events();
           });
@@ -97,10 +96,10 @@
           // create, style frame
             frame_width = $image.attr('width');
             frame_height = $image.attr('height');
-            $frame = $('<div/>', {
+            properties.frame = $('<div/>', {
               class: 'magnifyingFrame',
             });
-            $frame.css({
+            properties.frame.css({
               'width' : frame_width,
               'height' : frame_height,
               'background-image' : 'url("'+$image.attr('src')+'")',
@@ -108,50 +107,49 @@
               'background-repeat' : 'no-repeat',
               'display' : 'inline-block'
             });
-            if(settings.css_transitions) {
-              $frame.css({
+            if(properties.css_transitions) {
+              properties.frame.css({
                 '-webkit-transition-property' : 'background-size, background-position, box-shadow',
-                '-webkit-transition-duration' : settings.css_transition_speed,
+                '-webkit-transition-duration' : properties.css_transition_speed,
                 '-webkit-transition-timing-function' : 'ease-out',
                 '-moz-transition-property' : 'background-size, background-position, box-shadow',
-                '-moz-transition-duration' : settings.css_transition_speed,
+                '-moz-transition-duration' : properties.css_transition_speed,
                 '-moz-transition-timing-function' : 'ease-out',
                 '-ms-transition-property' : 'background-size, background-position, box-shadow',
-                '-ms-transition-duration' : settings.css_transition_speed,
+                '-ms-transition-duration' : properties.css_transition_speed,
                 '-ms-transition-timing-function' : 'ease-out',
                 '-o-transition-property' : 'background-size, background-position, box-shadow',
-                '-o-transition-duration' : settings.css_transition_speed,
+                '-o-transition-duration' : properties.css_transition_speed,
                 '-o-transition-timing-function' : 'ease-out',
                 'transition-property' : 'background-size, background-position, box-shadow',
-                'transition-duration' : settings.css_transition_speed,
+                'transition-duration' : properties.css_transition_speed,
                 'transition-timing-function' : 'ease-out'
               });
             }
-            if(settings.frame_shadow) {
-              $frame.data('box_shadow', settings.frame_shadow );
+            if(properties.frame_shadow) {
+              properties.frame.data('box_shadow', properties.frame_shadow );
             }
           // replace image with frame
-            $image.css('display', 'none').before($frame);
-            settings.frame = $frame;
+            $image.css('display', 'none').before(properties.frame);
         },
         bind_events : function() { // Bind plugin events
-          $frame.mouseenter(function(){
-            settings.mouseenter();
-            $frame.css('box-shadow', $frame.data('box_shadow'));
+          properties.frame.mouseenter(function(){
+            properties.mouseenter();
+            properties.frame.css('box-shadow', properties.frame.data('box_shadow'));
             magnifying_frame_active = setInterval(function() {
-              var offset = $frame.offset(),
+              var offset = properties.frame.offset(),
                 dx = ( offset.left - magnifyingFrame_cursor_tracking.x ) * multiplier,
                 dy = ( offset.top - magnifyingFrame_cursor_tracking.y ) * multiplier;
-              $frame.css({
+              properties.frame.css({
                 'background-size' : zoomed_width+'px '+zoomed_height+'px',
                 'background-position' : dx+'px '+dy+'px'
               });
-            }, settings.refresh_interval);
+            }, properties.refresh_interval);
           });
-          $frame.mouseleave(function(){
+          properties.frame.mouseleave(function(){
             clearInterval(magnifying_frame_active);
-            settings.mouseleave();
-            $frame.css({
+            properties.mouseleave();
+            properties.frame.css({
               'background-size': frame_width+'px '+frame_height+'px',
               'background-position' : '0px 0px',
               'box-shadow' : ''
