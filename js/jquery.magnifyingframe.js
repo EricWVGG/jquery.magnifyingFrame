@@ -44,11 +44,12 @@
 
     var settings = $.extend({
       'css_transitions' : true, /* smooths motion a little, creates a bouncing effect */
+      'css_transition_speed' : '0.1s', /* self-explanatory, probably won't need to adjust */
       'refresh_interval' : 2, /* increase if you have CPU issues */
       'frame_shadow' : 'inset 0px 0px 20px rgba(0,0,0,0.5)', /* creates an inset shadow while zooming */
       'mouseenter' : null, /* optional callback function */
       'mouseleave' : null, /* optional callback function */
-      'css_transition_speed' : '0.1s' /* self-explanatory, probably won't need to adjust */
+      'frame' : null /* reference point for callbacks */
     }, arguments);
 
     return this.each(function() {
@@ -131,6 +132,7 @@
             }
           // replace image with frame
             $image.css('display', 'none').before($frame);
+            settings.frame = $frame;
         },
         bind_events : function() { // Bind plugin events
           $frame.mouseenter(function(){
