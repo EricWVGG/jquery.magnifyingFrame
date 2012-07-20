@@ -39,16 +39,18 @@
     <h2>Default Settings</h2>
     <pre>
       $('.my_image').magnifyingFrame({
-        css_transitions : true, /* smooths motion, animates the zoom-transition */
-        css_transition_speed : '0.1s'm /* self-explanatory, probably won't need to adjust */
-        refresh_interval : 2, /* increase if you have CPU issues */
+        css_transitions : true, 
+          /* smooths motion and animates the zoom transition */
+        css_transition_speed : '0.1s'm 
+          /* self-explanatory, probably won’t adjustment */
+        refresh_interval : 2, 
+          /* increase if you have CPU issues */
         frame_shadow : 'inset 0px 0px 20px rgba(0,0,0,0.5)', 
           /* creates an inset shadow while zooming */
         mouseenter : function(),
         mouseleave : function()
            /* optional callback functions 
-              note: use $(this.frame) to manipulate output
-           */
+              note: use $(this.frame) to manipulate output */
       });
     </pre>
 
@@ -58,7 +60,7 @@
       &lt;script type="text/javascript"&gt;
         $(function() {
           $('.my_other_image').magnifyingFrame({
-            frame_shadow : 'inset 0px 0px 10px rgba(0,0,0,1)',
+            frame_shadow : 'inset 5px 5px 30px rgba(0,0,0,1)',
             mouseenter : function() {
               $(this.frame).html('Say hello to my little dead friend.');
             },
@@ -85,7 +87,7 @@
     $(function() {
       $('.my_image').magnifyingFrame();
       $('.my_other_image').magnifyingFrame({
-        frame_shadow : 'inset 0px 0px 10px rgba(0,0,0,1)',
+        frame_shadow : 'inset 5px 5px 30px rgba(0,0,0,1)',
         mouseenter : function() {
           $(this.frame).html('Say hello to my little dead friend.');
         },
