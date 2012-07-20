@@ -136,7 +136,7 @@
         bind_events : function() { // Bind plugin events
           properties.frame.mouseenter(function(){
             properties.mouseenter();
-            properties.frame.css('box-shadow', properties.frame.data('box_shadow'));
+            properties.frame.addClass('magnifyingFrame_active').css('box-shadow', properties.frame.data('box_shadow'));
             magnifying_frame_active = setInterval(function() {
               var offset = properties.frame.offset(),
                 dx = ( offset.left - magnifyingFrame_cursor_tracking.x ) * multiplier,
@@ -150,7 +150,7 @@
           properties.frame.mouseleave(function(){
             clearInterval(magnifying_frame_active);
             properties.mouseleave();
-            properties.frame.css({
+            properties.frame.removeClass('magnifyingFrame_active').css({
               'background-size': frame_width+'px '+frame_height+'px',
               'background-position' : '0px 0px',
               'box-shadow' : ''

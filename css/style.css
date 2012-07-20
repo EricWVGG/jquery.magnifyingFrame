@@ -75,7 +75,11 @@ td { vertical-align: top; }
 @media only screen and (min-width: 35em) {
   
   body {
-    margin:20px;
+    margin:20px 20px 200px 20px;
+  }
+  
+  pre span {
+    color:#aaa;
   }
 
 }

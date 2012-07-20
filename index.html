@@ -18,48 +18,48 @@
   <header>
     <h1>jQuery Magnifying Frame</h1>
     <h2>by <a href="http://whiskyvangoghgo.com">Eric Jacobsen</a></h2>
-    <h3>project home: <a href="http://whiskyvangoghgo.com/projects/magnifyingFrame">http://whiskyvangoghgo.com/projects/magnifyingFrame</a></h3>
+    <p>Project home: <a href="http://whiskyvangoghgo.com/projects/magnifyingFrame">http://whiskyvangoghgo.com/projects/magnifyingFrame</a></p>
+    <p>Download: <a href="https://github.com/EricWVGG/jquery.magnifyingFrame">https://github.com/EricWVGG/jquery.magnifyingFrame</a></p>
   </header>
   <div role="main">
     
     <h2>Directions</h2>
-    <p>Create a simple &lt;img&gt; tag, shrink the dimensions (say, present an 1200x1200 jpeg as 500x500), and initiate the javascript.</p>
+    <p>Create an &lt;img&gt; tag, shrink the dimensions (for example, an 1200x1200 jpeg shrunk to 500x500), and initiate the javascript.</p>
 
     <h2>Example</h2>
     <pre>
-&lt;img src="img/sample.jpg" class="my_image" width="500" height="500"&gt;
+&lt;img src="img/sample.jpg" class="my_frame" width="500" height="500"&gt;
 &lt;script type="text/javascript"&gt;
   $(function() {
-    $('.my_image').magnifyingFrame();
+    $('.my_frame').magnifyingFrame();
   });
 &lt;/script&gt;
     </pre>
-    <img src="img/dragonfly.jpg" class="my_image" width="500" height="500">
+    <img src="img/dragonfly.jpg" class="my_frame" width="500" height="500">
     
     <h2>Default Settings</h2>
     <pre>
-$('.my_image').magnifyingFrame({
+$('.my_frame').magnifyingFrame({
   css_transitions : true, 
-    /* smooths motion and animates the zoom transition */
+    <span>/* smooths motion and animates the zoom transition */</span>
   css_transition_speed : '0.1s',
-    /* self-explanatory, probably won’t adjustment */
+    <span>/* self-explanatory, probably won’t adjustment */</span>
   refresh_interval : 2, 
-    /* increase if you have CPU issues */
+    <span>/* increase if you have CPU issues */</span>
   frame_shadow : 'inset 0px 0px 20px rgba(0,0,0,0.5)', 
-    /* creates an inset shadow while zooming */
+    <span>/* creates an inset shadow while zooming */</span>
   mouseenter : function(),
   mouseleave : function()
-     /* optional callback functions 
-        note: use $(this.frame) to manipulate output */
+    <span>/* optional callback functions. use $(this.frame) to manipulate output */</span>
 });
     </pre>
 
     <h2>Example with custom settings</h2>
     <pre>
-&lt;img src="img/sample.jpg" class="my_other_image" width="500" height="500"&gt;
+&lt;img src="img/sample.jpg" class="my_custom_frame" width="300" height="300"&gt;
 &lt;script type="text/javascript"&gt;
   $(function() {
-    $('.my_other_image').magnifyingFrame({
+    $('.my_custom_frame').magnifyingFrame({
       frame_shadow : 'inset 5px 5px 30px rgba(0,0,0,1)',
       mouseenter : function() {
         $(this.frame).html('Say hello to my little dead friend.');
@@ -70,9 +70,22 @@ $('.my_image').magnifyingFrame({
     });
   });
 &lt;/script&gt;
+&lt;style type="text/css"&gt;
+  #my_custom_frame_wrapper div.magnifyingFrame {
+    display:table-cell;
+    text-align:center;
+    line-height:300px;
+    font-size:18px;
+    text-shadow:1px 1px 1px rgba(0,0,0,0.1), -1px -1px 1px rgba(0,0,0,0.2);
+    color:#ddd;
+  }
+  #my_custom_frame_wrapper div.magnifyingFrame.magnifyingFrame_active {
+    outline:1px solid red;
+  }
+&lt;/style&gt;
     </pre>
 
-    <div id="my_other_image_wrapper"><img src="img/dragonfly.jpg" class="my_other_image" width="500" height="500"></div>
+    <div id="my_custom_frame_wrapper"><img src="img/dragonfly.jpg" class="my_custom_frame" width="300" height="300"></div>
 
   </div>
   <footer>
@@ -85,9 +98,9 @@ $('.my_image').magnifyingFrame({
   <script type="text/javascript"src="js/jquery.magnifyingframe.js"></script>
   <script type="text/javascript">
     $(function() {
-      $('.my_image').magnifyingFrame();
-      $('.my_other_image').magnifyingFrame({
-        frame_shadow : 'inset 5px 5px 30px rgba(0,0,0,1)',
+      $('.my_frame').magnifyingFrame();
+      $('.my_custom_frame').magnifyingFrame({
+        frame_shadow : 'inset 5px 5px 20px rgba(0,0,0,1)',
         mouseenter : function() {
           $(this.frame).html('Say hello to my little dead friend.');
         },
@@ -98,13 +111,16 @@ $('.my_image').magnifyingFrame({
     });
   </script>
   <style type="text/css">
-    #my_other_image_wrapper div.magnifyingFrame {
+    #my_custom_frame_wrapper div.magnifyingFrame {
       display:table-cell;
       text-align:center;
-      line-height:480px;
-      font-size:24px;
+      line-height:290px;
+      font-size:18px;
       text-shadow:1px 1px 1px rgba(0,0,0,0.1), -1px -1px 1px rgba(0,0,0,0.2);
       color:#ddd;
+    }
+    #my_custom_frame_wrapper .magnifyingFrame_active {
+      outline:1px solid black;
     }
   </style>
 
