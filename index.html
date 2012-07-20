@@ -27,49 +27,49 @@
 
     <h2>Example</h2>
     <pre>
-      &lt;img src="img/sample.jpg" class="my_image" width="500" height="500"&gt;
-      &lt;script type="text/javascript"&gt;
-        $(function() {
-          $('.my_image').magnifyingFrame();
-        });
-      &lt;/script&gt;
+&lt;img src="img/sample.jpg" class="my_image" width="500" height="500"&gt;
+&lt;script type="text/javascript"&gt;
+  $(function() {
+    $('.my_image').magnifyingFrame();
+  });
+&lt;/script&gt;
     </pre>
     <img src="img/dragonfly.jpg" class="my_image" width="500" height="500">
     
     <h2>Default Settings</h2>
     <pre>
-      $('.my_image').magnifyingFrame({
-        css_transitions : true, 
-          /* smooths motion and animates the zoom transition */
-        css_transition_speed : '0.1s',
-          /* self-explanatory, probably won’t adjustment */
-        refresh_interval : 2, 
-          /* increase if you have CPU issues */
-        frame_shadow : 'inset 0px 0px 20px rgba(0,0,0,0.5)', 
-          /* creates an inset shadow while zooming */
-        mouseenter : function(),
-        mouseleave : function()
-           /* optional callback functions 
-              note: use $(this.frame) to manipulate output */
-      });
+$('.my_image').magnifyingFrame({
+  css_transitions : true, 
+    /* smooths motion and animates the zoom transition */
+  css_transition_speed : '0.1s',
+    /* self-explanatory, probably won’t adjustment */
+  refresh_interval : 2, 
+    /* increase if you have CPU issues */
+  frame_shadow : 'inset 0px 0px 20px rgba(0,0,0,0.5)', 
+    /* creates an inset shadow while zooming */
+  mouseenter : function(),
+  mouseleave : function()
+     /* optional callback functions 
+        note: use $(this.frame) to manipulate output */
+});
     </pre>
 
     <h2>Example with custom settings</h2>
     <pre>
-      &lt;img src="img/sample.jpg" class="my_other_image" width="500" height="500"&gt;
-      &lt;script type="text/javascript"&gt;
-        $(function() {
-          $('.my_other_image').magnifyingFrame({
-            frame_shadow : 'inset 5px 5px 30px rgba(0,0,0,1)',
-            mouseenter : function() {
-              $(this.frame).html('Say hello to my little dead friend.');
-            },
-            mouseleave : function() {
-              $(this.frame).html('');
-            }
-          });
-        });
-      &lt;/script&gt;
+&lt;img src="img/sample.jpg" class="my_other_image" width="500" height="500"&gt;
+&lt;script type="text/javascript"&gt;
+  $(function() {
+    $('.my_other_image').magnifyingFrame({
+      frame_shadow : 'inset 5px 5px 30px rgba(0,0,0,1)',
+      mouseenter : function() {
+        $(this.frame).html('Say hello to my little dead friend.');
+      },
+      mouseleave : function() {
+        $(this.frame).html('');
+      }
+    });
+  });
+&lt;/script&gt;
     </pre>
 
     <div id="my_other_image_wrapper"><img src="img/dragonfly.jpg" class="my_other_image" width="500" height="500"></div>
