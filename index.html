@@ -39,15 +39,38 @@
     <h2>Default Settings</h2>
     <pre>
       $('.my_image').magnifyingFrame({
-        'css_transitions' : true, /* smooths motion, animates the zoom-transition */
-        'css_transition_speed' : '0.1s'm /* self-explanatory, probably won't need to adjust */
-        'refresh_interval' : 2, /* increase if you have CPU issues */
-        'frame_shadow' : 'inset 0px 0px 20px rgba(0,0,0,0.5)', 
+        css_transitions : true, /* smooths motion, animates the zoom-transition */
+        css_transition_speed : '0.1s'm /* self-explanatory, probably won't need to adjust */
+        refresh_interval : 2, /* increase if you have CPU issues */
+        frame_shadow : 'inset 0px 0px 20px rgba(0,0,0,0.5)', 
           /* creates an inset shadow while zooming */
-        'mouseenter' : function(), /* optional callback function */
-        'mouseleave' : function() /* optional callback function */
+        mouseenter : function(),
+        mouseleave : function()
+           /* optional callback functions 
+              note: use $(this.frame) to manipulate output
+           */
       });
     </pre>
+
+    <h2>Example with custom settings</h2>
+    <pre>
+      &lt;img src="img/sample.jpg" class="my_other_image" width="500" height="500"&gt;
+      &lt;script type="text/javascript"&gt;
+        $(function() {
+          $('.my_other_image').magnifyingFrame({
+            frame_shadow : 'inset 0px 0px 10px rgba(0,0,0,1)',
+            mouseenter : function() {
+              $(this.frame).html('Say hello to my little friend.');
+            },
+            mouseleave : function() {
+              $(this.frame).html('');
+            }
+          });
+        });
+      &lt;/script&gt;
+    </pre>
+
+    <div id="my_other_image_wrapper"><img src="img/dragonfly.jpg" class="my_other_image" width="500" height="500"></div>
 
   </div>
   <footer>
@@ -61,8 +84,27 @@
   <script type="text/javascript">
     $(function() {
       $('.my_image').magnifyingFrame();
+      $('.my_other_image').magnifyingFrame({
+        frame_shadow : 'inset 0px 0px 10px rgba(0,0,0,1)',
+        mouseenter : function() {
+          $(this.frame).html('Say hello to my little friend.');
+        },
+        mouseleave : function() {
+          $(this.frame).html('');
+        }
+      });
     });
   </script>
+  <style type="text/css">
+    #my_other_image_wrapper div.magnifyingFrame {
+      display:table-cell;
+      text-align:center;
+      line-height:480px;
+      font-size:24px;
+      text-shadow:1px 1px 1px rgba(0,0,0,0.1), -1px -1px 1px rgba(0,0,0,0.2);
+      color:#ddd;
+    }
+  </style>
 
 </body>
 </html>

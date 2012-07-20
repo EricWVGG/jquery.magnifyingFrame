@@ -96,10 +96,10 @@
           // create, style frame
             frame_width = $image.attr('width');
             frame_height = $image.attr('height');
-            properties.frame = $('<div/>', {
+            var frame = $('<div/>', {
               class: 'magnifyingFrame',
             });
-            properties.frame.css({
+            frame.css({
               'width' : frame_width,
               'height' : frame_height,
               'background-image' : 'url("'+$image.attr('src')+'")',
@@ -108,7 +108,7 @@
               'display' : 'inline-block'
             });
             if(properties.css_transitions) {
-              properties.frame.css({
+              frame.css({
                 '-webkit-transition-property' : 'background-size, background-position, box-shadow',
                 '-webkit-transition-duration' : properties.css_transition_speed,
                 '-webkit-transition-timing-function' : 'ease-out',
@@ -127,10 +127,11 @@
               });
             }
             if(properties.frame_shadow) {
-              properties.frame.data('box_shadow', properties.frame_shadow );
+              frame.data('box_shadow', properties.frame_shadow );
             }
           // replace image with frame
-            $image.css('display', 'none').before(properties.frame);
+            $image.css('display', 'none').before(frame);
+            properties.frame = frame;
         },
         bind_events : function() { // Bind plugin events
           properties.frame.mouseenter(function(){
