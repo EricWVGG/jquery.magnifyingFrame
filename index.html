@@ -18,7 +18,7 @@
   <header>
     <h1>jQuery Magnifying Frame</h1>
     <h2>by <a href="http://whiskyvangoghgo.com">Eric Jacobsen</a></h2>
-    <p>Project home: <a href="http://whiskyvangoghgo.com/projects/magnifyingFrame">http://whiskyvangoghgo.com/projects/magnifyingFrame</a></p>
+    <p>Project home: <a href="http://whiskyvangoghgo.com/projects/magnifyingFrame">http://whiskyvangoghgo.com/projects/jquery.magnifyingFrame</a></p>
     <p>Download: <a href="https://github.com/EricWVGG/jquery.magnifyingFrame">https://github.com/EricWVGG/jquery.magnifyingFrame</a></p>
   </header>
   <div role="main">
@@ -43,11 +43,11 @@ $('.my_frame').magnifyingFrame({
   css_transitions : true, 
     <span>/* smooths motion and animates the zoom transition */</span>
   css_transition_speed : '0.1s',
-    <span>/* self-explanatory, probably won’t adjustment */</span>
+    <span>/* self-explanatory, probably won’t require adjustment */</span>
   refresh_interval : 2, 
     <span>/* increase if you have CPU issues */</span>
   frame_shadow : 'inset 0px 0px 20px rgba(0,0,0,0.5)', 
-    <span>/* creates an inset shadow while zooming */</span>
+    <span>/* creates an inset shadow while zooming; set to 'none' for no shadow */</span>
   mouseenter : function(),
   mouseleave : function()
     <span>/* optional callback functions. use $(this.frame) to manipulate output */</span>
@@ -56,7 +56,7 @@ $('.my_frame').magnifyingFrame({
 
     <h2>Example with custom settings</h2>
     <pre>
-&lt;img src="img/sample.jpg" class="my_custom_frame" width="300" height="300"&gt;
+&lt;div id="my_custom_frame_wrapper"&gt;&lt;img src="img/sample.jpg" class="my_custom_frame" width="300" height="300"&gt;&lt;/div&gt;
 &lt;script type="text/javascript"&gt;
   $(function() {
     $('.my_custom_frame').magnifyingFrame({
